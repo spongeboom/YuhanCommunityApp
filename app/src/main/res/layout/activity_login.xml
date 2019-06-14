@@ -26,6 +26,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <EditText
+                    android:id="@+id/email_edit"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/email"/>
@@ -37,12 +38,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
             <EditText
+                    android:id="@+id/password_edit"
+                    android:inputType="textPassword"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/password"/>
         </android.support.design.widget.TextInputLayout>
 
         <Button
+                android:id="@+id/email_login_button"
                 android:theme="@style/ButtonStyle"
                 android:text="@string/signin_email"
                 android:layout_width="match_parent"
@@ -83,6 +87,4 @@
                 android:layout_height="40dp"/>
 
     </LinearLayout>
-
-
 </RelativeLayout>
