@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">Yuhan</string>
-    <string name="facebook_app_id"></string>
-    <string name="fb_login_protocol_scheme"></string>
+    <string name="app_name">YuhanCommunity</string>
+    <string name="facebook_app_id">385883028702624</string>
+    <string name="fb_login_protocol_scheme">fb385883028702624</string>
 
     <!-- Sign In -->
     <string name="email">Email</string>
