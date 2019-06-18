@@ -72,7 +72,7 @@ class AddPhotoActivity : AppCompatActivity() {
                     val contentDTO = ContentDTO()
 
                     // image url
-                    contentDTO.imageurl = uri
+                    contentDTO.imageUrl = uri
 
                     // user UID
                     contentDTO.uid = auth?.currentUser?.uid
