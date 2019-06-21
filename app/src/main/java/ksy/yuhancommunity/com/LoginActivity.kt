@@ -28,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private var GOOGLE_LOGIN_CODE = 8888
     private var callbackManager:CallbackManager? = null
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

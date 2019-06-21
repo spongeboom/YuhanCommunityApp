@@ -9,7 +9,6 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="100dp">
-
         <ImageView
                 android:id="@+id/account_profile_image"
                 tools:src="@drawable/ic_account"

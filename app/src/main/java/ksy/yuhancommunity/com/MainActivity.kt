@@ -18,7 +18,6 @@ import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
-
     private val PICK_PROFILE_FROM_ALBUM = 10
 
     override fun onCreate(savedInstanceState: Bundle?) {

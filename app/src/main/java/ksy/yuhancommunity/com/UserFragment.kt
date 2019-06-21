@@ -30,6 +30,7 @@ class UserFragment : Fragment() {
     private var firestore: FirebaseFirestore? = null
 
     var currentUserUid: String? = null // current UID
+
     var uid: String? = null // choose uid
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

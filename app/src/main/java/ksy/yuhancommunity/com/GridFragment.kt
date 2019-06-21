@@ -17,6 +17,7 @@ import ksy.yuhancommunity.com.model.ContentDTO
 
 class GridFragment : Fragment(){
 
+
     var mainView : View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

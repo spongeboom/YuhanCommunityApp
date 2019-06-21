@@ -15,7 +15,9 @@ import kotlinx.android.synthetic.main.item_detail.view.*
 import ksy.yuhancommunity.com.model.ContentDTO
 
 class DetailviewFragment : Fragment(){
+
     private var firestore:FirebaseFirestore? = null
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         firestore = FirebaseFirestore.getInstance()
