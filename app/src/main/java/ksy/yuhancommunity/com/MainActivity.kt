@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.util.Log
 import android.view.MenuItem
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -30,8 +31,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),1)
     }
 
-    override fun onNavigationItemSelected(p0: MenuItem): Boolean {
-        when(p0.itemId){
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        setToolbarDefault()
+        when(item.itemId){
             R.id.action_home -> {
                 val detailviewFragment = DetailviewFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main_content,detailviewFragment).commit()
@@ -40,7 +42,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.action_search -> {
                 val gridFragment = GridFragment()
                 supportFragmentManager.beginTransaction().replace(R.id.main_content,gridFragment).commit()
-
                 return true
             }
             R.id.action_add_photo -> {
@@ -56,11 +57,21 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
             R.id.action_account -> {
                 val userFragment = UserFragment()
+                val uid = FirebaseAuth.getInstance().currentUser?.uid
+                val bundle = Bundle()
+                bundle.putString("destinationUid",uid)
+                userFragment.arguments = bundle
                 supportFragmentManager.beginTransaction().replace(R.id.main_content,userFragment).commit()
                 return true
             }
         }
         return false
+    }
+
+    private fun setToolbarDefault(){
+        toolbar_btn_back.visibility = View.GONE
+        toolbar_username.visibility = View.GONE
+        toolbar_title_image.visibility = View.VISIBLE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

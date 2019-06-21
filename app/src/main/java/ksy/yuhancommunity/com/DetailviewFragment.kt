@@ -14,25 +14,25 @@ import kotlinx.android.synthetic.main.fragment_detail.view.*
 import kotlinx.android.synthetic.main.item_detail.view.*
 import ksy.yuhancommunity.com.model.ContentDTO
 
-class DetailviewFragment : Fragment(){
+class DetailviewFragment : Fragment() {
 
-    private var firestore:FirebaseFirestore? = null
+    private var firestore: FirebaseFirestore? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         firestore = FirebaseFirestore.getInstance()
 
-        val view = LayoutInflater.from(inflater.context).inflate(R.layout.fragment_detail,container,false)
+        val view = LayoutInflater.from(inflater.context).inflate(R.layout.fragment_detail, container, false)
         view.detailviewfragment_recyclerview.adapter = DetailRecyclerviewAdapter()
         view.detailviewfragment_recyclerview.layoutManager = LinearLayoutManager(activity)
 
         return view
     }
 
-    inner class DetailRecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
+    inner class DetailRecyclerviewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-        val contentDTOs : ArrayList<ContentDTO>
-        val contentUidList : ArrayList<String>
+        val contentDTOs: ArrayList<ContentDTO>
+        val contentUidList: ArrayList<String>
 
 
         init {
@@ -44,20 +44,21 @@ class DetailviewFragment : Fragment(){
 
             // orderby = timestamp
             firestore?.collection("images")?.orderBy("timestamp")
-                ?.addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
-                contentDTOs.clear()
-                contentUidList.clear()
-                for(snapshot in querySnapshot!!.documents){
-                    var item = snapshot.toObject(ContentDTO::class.java)
-                    contentDTOs.add(item!!)
-                    contentUidList.add(snapshot.id)
+                ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    contentDTOs.clear()
+                    contentUidList.clear()
+                    if (querySnapshot == null) return@addSnapshotListener
+                    for (snapshot in querySnapshot!!.documents) {
+                        var item = snapshot.toObject(ContentDTO::class.java)
+                        contentDTOs.add(item!!)
+                        contentUidList.add(snapshot.id)
+                    }
+                    notifyDataSetChanged()
                 }
-                notifyDataSetChanged()
-            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail,parent,false)
+            var view = LayoutInflater.from(parent.context).inflate(R.layout.item_detail, parent, false)
             return CustomViewHolder(view)
         }
 
@@ -82,15 +83,15 @@ class DetailviewFragment : Fragment(){
             viewHolder.detailviewitem_explain_text.text = contentDTOs[position].explain
 
             // favorite counter set
-            viewHolder.detailviewitem_favoritecounter_text.text = "좋아요 " +contentDTOs[position].favoriteCount + "개"
+            viewHolder.detailviewitem_favoritecounter_text.text = "좋아요 " + contentDTOs[position].favoriteCount + "개"
 
             viewHolder.detailviewitem_favorite_image.setOnClickListener {
                 favoriteEvent(position)
             }
             // like click
-            if(contentDTOs[position].favorites.containsKey(FirebaseAuth.getInstance().currentUser!!.uid)){
+            if (contentDTOs[position].favorites.containsKey(FirebaseAuth.getInstance().currentUser!!.uid)) {
                 viewHolder.detailviewitem_favorite_image.setImageResource(R.drawable.ic_favorite)
-            }else{
+            } else {
                 // don't click
                 viewHolder.detailviewitem_favorite_image.setImageResource(R.drawable.ic_favorite_border)
             }
@@ -98,28 +99,28 @@ class DetailviewFragment : Fragment(){
             viewHolder.detailviewitem_profile_image.setOnClickListener {
                 var fragment = UserFragment()
                 var bundle = Bundle()
-                bundle.putString("destinationUid",contentDTOs[position].uid)
+                bundle.putString("destinationUid", contentDTOs[position].uid)
+                bundle.putString("userId", contentDTOs[position].userId)
                 fragment.arguments = bundle
-                activity!!.supportFragmentManager.beginTransaction().replace(R.id.main_content,fragment).commit()
+                activity!!.supportFragmentManager.beginTransaction().replace(R.id.main_content, fragment).commit()
             }
         }
 
-        private fun favoriteEvent(position: Int){
+        private fun favoriteEvent(position: Int) {
             var tsDoc = firestore?.collection("images")?.document(contentUidList[position])
-            firestore?.runTransaction{
-                transaction ->
-                    var uid = FirebaseAuth.getInstance().currentUser!!.uid
-                    var contentDTO = transaction.get(tsDoc!!).toObject(ContentDTO::class.java)
+            firestore?.runTransaction { transaction ->
+                var uid = FirebaseAuth.getInstance().currentUser!!.uid
+                var contentDTO = transaction.get(tsDoc!!).toObject(ContentDTO::class.java)
 
-                    if(contentDTO!!.favorites.containsKey(uid)){
-                        // status : like
-                        contentDTO?.favoriteCount = contentDTO?.favoriteCount - 1
-                        contentDTO?.favorites.remove(uid)
-                    }else{
-                        contentDTO?.favorites[uid] = true
-                        contentDTO?.favoriteCount = contentDTO?.favoriteCount + 1
-                    }
-                    transaction.set(tsDoc,contentDTO)
+                if (contentDTO!!.favorites.containsKey(uid)) {
+                    // status : like
+                    contentDTO?.favoriteCount = contentDTO?.favoriteCount - 1
+                    contentDTO?.favorites.remove(uid)
+                } else {
+                    contentDTO?.favorites[uid] = true
+                    contentDTO?.favoriteCount = contentDTO?.favoriteCount + 1
+                }
+                transaction.set(tsDoc, contentDTO)
             }
         }
     }

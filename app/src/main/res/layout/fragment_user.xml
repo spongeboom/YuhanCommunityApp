@@ -51,10 +51,11 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                 <TextView
-                        android:text="@string/post"
+                        android:text="@string/follower"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <TextView
+                        android:id="@+id/account_tv_follower_count"
                         android:text="@string/count_0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
@@ -66,10 +67,11 @@
                     android:orientation="vertical"
                     android:layout_weight="1">
                 <TextView
-                        android:text="@string/post"
+                        android:text="@string/following"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
                 <TextView
+                        android:id="@+id/account_tv_following_count"
                         android:text="@string/count_0"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"/>
