@@ -41,7 +41,8 @@ class DetailviewFragment : Fragment(){
             var uid = FirebaseAuth.getInstance().currentUser?.uid
 
             // orderby = timestamp
-            firestore?.collection("images")?.orderBy("timestamp")?.addSnapshotListener{querySnapshot, firebaseFirestoreException ->
+            firestore?.collection("images")?.orderBy("timestamp")
+                ?.addSnapshotListener{ querySnapshot, firebaseFirestoreException ->
                 contentDTOs.clear()
                 contentUidList.clear()
                 for(snapshot in querySnapshot!!.documents){
@@ -91,7 +92,16 @@ class DetailviewFragment : Fragment(){
                 // don't click
                 viewHolder.detailviewitem_favorite_image.setImageResource(R.drawable.ic_favorite_border)
             }
+
+            viewHolder.detailviewitem_profile_image.setOnClickListener {
+                var fragment = UserFragment()
+                var bundle = Bundle()
+                bundle.putString("destinationUid",contentDTOs[position].uid)
+                fragment.arguments = bundle
+                activity!!.supportFragmentManager.beginTransaction().replace(R.id.main_content,fragment).commit()
+            }
         }
+
         private fun favoriteEvent(position: Int){
             var tsDoc = firestore?.collection("images")?.document(contentUidList[position])
             firestore?.runTransaction{

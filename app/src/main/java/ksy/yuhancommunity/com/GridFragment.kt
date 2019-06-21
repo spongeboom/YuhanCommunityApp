@@ -20,7 +20,6 @@ class GridFragment : Fragment(){
     var mainView : View? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        mainView = LayoutInflater.from(inflater.context).inflate(R.layout.fragment_grid,container,false)
         mainView = LayoutInflater.from(inflater.context).inflate(R.layout.fragment_grid,container,false)
         mainView?.gridfragment_recyclerview?.adapter = GridFragmentRecyclerviewAdapter()
         mainView?.gridfragment_recyclerview?.layoutManager = GridLayoutManager(activity, 3)

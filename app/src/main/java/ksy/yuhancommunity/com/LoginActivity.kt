@@ -34,17 +34,12 @@ class LoginActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        email_login_button.setOnClickListener {
-            createAndLoginEmail()
-        }
 
-        google_login_button.setOnClickListener {
-            googleLogin()
-        }
+        email_login_button.setOnClickListener { createAndLoginEmail() }
 
-        facebook_login_button.setOnClickListener {
-            facebookLogin()
-        }
+        google_login_button.setOnClickListener { googleLogin() }
+
+        facebook_login_button.setOnClickListener { facebookLogin() }
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -95,7 +90,12 @@ class LoginActivity : AppCompatActivity() {
 
     private fun firebaseAuthWithGoogle(account : GoogleSignInAccount){
         val credential = GoogleAuthProvider.getCredential(account.idToken,null)
-        auth?.signInWithCredential(credential)
+        auth?.signInWithCredential(credential)?.addOnCompleteListener {
+            task ->
+            if (task.isSuccessful){
+                moveMainPage(auth?.currentUser)
+            }
+        }
     }
 
     private fun facebookLogin(){
