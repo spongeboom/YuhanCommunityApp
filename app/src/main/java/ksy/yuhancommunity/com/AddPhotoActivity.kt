@@ -5,6 +5,7 @@ import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -17,8 +18,10 @@ import java.util.*
 class AddPhotoActivity : AppCompatActivity() {
 
     private val PICK_IMAGE_FROM_ALBUM = 1001
-    private var storage: FirebaseStorage? = null
+
     private var photoUri: Uri? = null
+
+    private var storage: FirebaseStorage? = null
     private var auth: FirebaseAuth? = null
     private var firestore : FirebaseFirestore? = null
 
@@ -26,6 +29,7 @@ class AddPhotoActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_photo)
 
+        // firebase
         storage = FirebaseStorage.getInstance()
         auth = FirebaseAuth.getInstance()
         firestore = FirebaseFirestore.getInstance()
@@ -39,6 +43,7 @@ class AddPhotoActivity : AppCompatActivity() {
             photoPickerIntent.type = "image/*"
             startActivityForResult(photoPickerIntent, PICK_IMAGE_FROM_ALBUM)
         }
+
         add_photo_btn_upload.setOnClickListener {
             contentUpload()
         }
@@ -57,6 +62,8 @@ class AddPhotoActivity : AppCompatActivity() {
     }
 
     private fun contentUpload() {
+        progress_bar.visibility = View.VISIBLE
+
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date())
         val imageFileName = "PNG_" + timeStamp + "_.png"
         val storageRef = storage?.reference?.child("images")?.child(imageFileName)
@@ -64,15 +71,17 @@ class AddPhotoActivity : AppCompatActivity() {
         photoUri?.let {
             storageRef?.putFile(it)?.addOnFailureListener {
                 Toast.makeText(this, getString(R.string.upload_fail), Toast.LENGTH_SHORT).show()
+                progress_bar.visibility = View.GONE
             }?.addOnSuccessListener { taskSnapshot ->
                 storageRef.downloadUrl.addOnCompleteListener { taskSnapshot ->
+                    progress_bar.visibility = View.GONE
                     Toast.makeText(this, getString(R.string.upload_success), Toast.LENGTH_SHORT).show()
 
-                    val uri = taskSnapshot.result.toString()
+                    val uri = taskSnapshot.result
                     val contentDTO = ContentDTO()
 
                     // image url
-                    contentDTO.imageUrl = uri
+                    contentDTO.imageUrl = uri.toString()
 
                     // user UID
                     contentDTO.uid = auth?.currentUser?.uid

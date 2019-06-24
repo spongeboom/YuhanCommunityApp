@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+    <ImageView
+            android:id="@+id/commentviewitem_iv_profile"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_margin="7.5dp"/>
+
+    <TextView
+            android:layout_margin="7.5dp"
+            android:id="@+id/commentviewitem_tv_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            tools:text="유저 아이디"/>
+
+    <TextView
+            android:id="@+id/commentviewitem_tv_comment"
+            android:layout_margin="7.5dp"
+            tools:text="메세지"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+</LinearLayout>

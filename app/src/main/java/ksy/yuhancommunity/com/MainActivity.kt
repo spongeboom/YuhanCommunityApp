@@ -9,12 +9,13 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.storage.FirebaseStorage
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -25,10 +26,33 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        progress_bar.visibility = View.VISIBLE
+
+        // bottom nav view
         bottom_navigation.setOnNavigationItemSelectedListener(this)
         bottom_navigation.selectedItemId = R.id.action_home
 
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),1)
+
+        registerPushToken()
+    }
+
+    private fun registerPushToken(){
+        FirebaseInstanceId.getInstance().instanceId
+            .addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+                // Get new Instance ID token
+                val token = task.result?.token
+                var uid = FirebaseAuth.getInstance().currentUser?.uid
+                var map = mutableMapOf<String,Any?>()
+                map["pushToken"] = token!!
+                FirebaseFirestore.getInstance().collection("pushtokens")
+                    .document(uid!!).set(map)
+
+            })
+
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -36,23 +60,34 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         when(item.itemId){
             R.id.action_home -> {
                 val detailviewFragment = DetailviewFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content,detailviewFragment).commit()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_content,detailviewFragment)
+                    .commit()
                 return true
             }
             R.id.action_search -> {
                 val gridFragment = GridFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content,gridFragment).commit()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_content,gridFragment)
+                    .commit()
                 return true
             }
             R.id.action_add_photo -> {
                 if(ContextCompat.checkSelfPermission(this,Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
                     startActivity(Intent(this,AddPhotoActivity::class.java))
+                }else{
+                    Toast.makeText(this,"스토리지 읽기 권한이 없습니다.", Toast.LENGTH_SHORT).show()
                 }
                 return true
             }
             R.id.action_favorite_alarm -> {
-                val alertFragment = AlertFragment()
-                supportFragmentManager.beginTransaction().replace(R.id.main_content,alertFragment).commit()
+                val alarmfrgment = AlarmFragment()
+                supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_content,alarmfrgment)
+                    .commit()
                 return true
             }
             R.id.action_account -> {
@@ -61,7 +96,9 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 val bundle = Bundle()
                 bundle.putString("destinationUid",uid)
                 userFragment.arguments = bundle
-                supportFragmentManager.beginTransaction().replace(R.id.main_content,userFragment).commit()
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_content,userFragment)
+                    .commit()
                 return true
             }
         }
