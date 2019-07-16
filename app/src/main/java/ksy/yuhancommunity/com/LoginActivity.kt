@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.facebook.AccessToken
@@ -53,16 +52,20 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun createAndLoginEmail() {
+        progress_bar.visibility = View.VISIBLE
+
         auth?.createUserWithEmailAndPassword(email_edit.text.toString(), password_edit.text.toString())
             ?.addOnCompleteListener { task ->
-                progress_bar.visibility = View.GONE
                 if (task.isSuccessful) {
+                    progress_bar.visibility = View.GONE
                     Toast.makeText(this,getString(R.string.signup_complete),Toast.LENGTH_SHORT).show()
                     moveMainPage(auth?.currentUser)
                 } else if (task.exception?.message.isNullOrEmpty()) {
+                    progress_bar.visibility = View.GONE
                     Toast.makeText(this, task.exception!!.message, Toast.LENGTH_SHORT).show()
                 } else {
                     // login
+                    progress_bar.visibility = View.GONE
                     signEmail()
                 }
             }
@@ -71,7 +74,6 @@ class LoginActivity : AppCompatActivity() {
     private fun signEmail() {
         auth?.signInWithEmailAndPassword(email_edit.text.toString(), password_edit.text.toString())
             ?.addOnCompleteListener { task ->
-                progress_bar.visibility = View.GONE
                 if (task.isSuccessful) {
                     moveMainPage(auth?.currentUser)
                 } else {

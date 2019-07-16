@@ -39,6 +39,7 @@ class DetailviewFragment : Fragment() {
         fcmPush = FcmPush()
 
         mainView = inflater.inflate(R.layout.fragment_detail,container,false)
+
         return mainView
     }
 
@@ -72,7 +73,6 @@ class DetailviewFragment : Fragment() {
                     if(userDTO?.followings != null){
                         getContents(userDTO.followings)
                     }
-//                    getContents(userDTO?.followings!!)
                 }
             }
         }
@@ -83,13 +83,14 @@ class DetailviewFragment : Fragment() {
                     contentDTOs.clear()
                     contentUidList.clear()
                     if (querySnapshot == null) return@addSnapshotListener
-                    for (snapshot in querySnapshot!!.documents) {
+                    for (snapshot in querySnapshot!!.documents){
                         var item = snapshot.toObject(ContentDTO::class.java)
                         if(followers.keys.contains(item?.uid)){
                             contentDTOs.add(item!!)
                             contentUidList.add(snapshot.id)
                         }
                     }
+                    contentDTOs.sortByDescending { it.timestamp }
                     notifyDataSetChanged()
                 }
         }
@@ -118,7 +119,7 @@ class DetailviewFragment : Fragment() {
                     }
                 }
 
-            viewHolder.detailviewitem_profile_image.setOnClickListener {
+            viewHolder.detailviewitem_profile_container.setOnClickListener {
                 var fragment = UserFragment()
                 var bundle = Bundle()
                 bundle.putString("destinationUid", contentDTOs[position].uid)

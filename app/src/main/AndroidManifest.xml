@@ -13,18 +13,16 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
         <activity android:name=".CommentActivity"
-            android:windowSoftInputMode="adjustResize">
+            android:windowSoftInputMode="adjustPan">
         </activity>
         <activity android:name=".AddPhotoActivity">
         </activity>
         <activity android:name=".MainActivity">
         </activity>
         <activity
-                android:name=".LoginActivity"
-                android:windowSoftInputMode="adjustNothing">
+                android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -50,12 +48,24 @@
             </intent-filter>
         </activity>
 
+        <!--<meta-data-->
+            <!--android:name="com.google.firebase.messaging.default_notifiacation_icon"-->
+            <!--android:value="@string/default_notification_channel_id" />-->
+        <service
+                android:name=".MyFirebaseMessagingService"
+                android:enabled="true"
+                android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/push_icon" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-    </application>
 
+    </application>
 </manifest>

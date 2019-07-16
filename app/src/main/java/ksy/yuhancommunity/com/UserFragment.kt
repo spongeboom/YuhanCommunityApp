@@ -64,6 +64,18 @@ class UserFragment : Fragment() {
                     startActivity(Intent(activity,LoginActivity::class.java))
                     auth?.signOut()
                 }
+
+                fragmentView?.account_profile_image?.setOnClickListener {
+                    if (ContextCompat.checkSelfPermission(
+                            activity!!,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        ) == PackageManager.PERMISSION_GRANTED
+                    ) {
+                        var photoPickerIntent = Intent(Intent.ACTION_PICK)
+                        photoPickerIntent.type = "image/*"
+                        activity!!.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
+                    }
+                }
             } else {
                 // 제 3자 유저 페이지
                 fragmentView?.account_btn_follow_signout?.text = getString(R.string.follow)
@@ -84,17 +96,7 @@ class UserFragment : Fragment() {
         }
 
 
-        fragmentView?.account_profile_image?.setOnClickListener {
-            if (ContextCompat.checkSelfPermission(
-                    activity!!,
-                    Manifest.permission.READ_EXTERNAL_STORAGE
-                ) == PackageManager.PERMISSION_GRANTED
-            ) {
-                var photoPickerIntent = Intent(Intent.ACTION_PICK)
-                photoPickerIntent.type = "image/*"
-                activity!!.startActivityForResult(photoPickerIntent, PICK_PROFILE_FROM_ALBUM)
-            }
-        }
+
 
         getFollowing()
         getFollower()
@@ -238,7 +240,6 @@ class UserFragment : Fragment() {
                     }
                     account_tv_post_count.text = contentDTOs.size.toString()
                     notifyDataSetChanged()
-
                 }
         }
 
@@ -247,7 +248,6 @@ class UserFragment : Fragment() {
             val imageview = ImageView(parent.context)
             imageview.layoutParams = LinearLayoutCompat.LayoutParams(width, width)
             return CustomViewHolder(imageview)
-
         }
 
         inner class CustomViewHolder(var imageview: ImageView) : RecyclerView.ViewHolder(imageview)

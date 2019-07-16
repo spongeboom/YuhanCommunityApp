@@ -21,12 +21,15 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     private val PICK_PROFILE_FROM_ALBUM = 10
+    private lateinit var backPressHolder:OnBackPressHolder
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         progress_bar.visibility = View.VISIBLE
+
+        backPressHolder = OnBackPressHolder()
 
         // bottom nav view
         bottom_navigation.setOnNavigationItemSelectedListener(this)
@@ -35,6 +38,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),1)
 
         registerPushToken()
+    }
+
+    override fun onBackPressed() {
+        backPressHolder.onBackPressed()
     }
 
     private fun registerPushToken(){
@@ -50,7 +57,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 map["pushToken"] = token!!
                 FirebaseFirestore.getInstance().collection("pushtokens")
                     .document(uid!!).set(map)
-
             })
 
     }
@@ -133,6 +139,24 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                     }
                 }
             }
+        }
+    }
+
+
+    inner class OnBackPressHolder(){
+        private var backPressHolder : Long = 0
+        fun onBackPressed(){
+            if(System.currentTimeMillis() > backPressHolder + 2000){
+                backPressHolder = System.currentTimeMillis()
+                showBackToast()
+                return
+            }
+            if(System.currentTimeMillis() <= backPressHolder + 2000){
+                finishAffinity()
+            }
+        }
+        fun showBackToast(){
+            Toast.makeText(this@MainActivity,"한번더 누르시면 종료됩니다.",Toast.LENGTH_SHORT).show()
         }
     }
 }

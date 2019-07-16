@@ -5,13 +5,14 @@
               android:layout_height="wrap_content">
 
     <LinearLayout
+            android:id="@+id/detailviewitem_profile_container"
             android:layout_width="match_parent"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:layout_height="50dp">
         <ImageView
                 android:id="@+id/detailviewitem_profile_image"
-                tools:src="@mipmap/ic_launcher"
+                android:src="@drawable/ic_account"
                 android:layout_margin="7.5dp"
                 android:layout_width="35dp"
                 android:layout_height="35dp"/>

@@ -34,12 +34,14 @@ class AlarmFragment : Fragment() {
             val uid = FirebaseAuth.getInstance().currentUser!!.uid
             alarmSnapshot = FirebaseFirestore.getInstance().collection("alarms").whereEqualTo("destinationUid", uid)
                 .orderBy("timestamp").addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    alarmDTOlist.clear()
                     if (querySnapshot == null) return@addSnapshotListener
                     for (snapshot in querySnapshot.documents) {
                         alarmDTOlist.add(snapshot.toObject(AlarmDTO::class.java)!!)
                     }
                     alarmDTOlist.sortByDescending { it.timestamp }
                     notifyDataSetChanged()
+
                 }
         }
 
@@ -59,8 +61,8 @@ class AlarmFragment : Fragment() {
             val commentTextView = holder.itemView.commentviewitem_tv_profile
 
             FirebaseFirestore.getInstance().collection("profileImages")
-                .document(alarmDTOlist[position].uid!!).get().addOnCompleteListener {task ->
-                    if(task.isSuccessful){
+                .document(alarmDTOlist[position].uid!!).get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
                         val url = task.result!!["image"]
                         Glide.with(activity!!)
                             .load(url)
@@ -75,8 +77,8 @@ class AlarmFragment : Fragment() {
                     commentTextView.text = str_0
                 }
                 1 -> {
-                    val str_1 = alarmDTOlist[position].userId + getString(R.string.alarm_who)+" \""+
-                            alarmDTOlist[position].message +"\" " + getString(R.string.alarm_comment)
+                    val str_1 = alarmDTOlist[position].userId + getString(R.string.alarm_who) + " \"" +
+                            alarmDTOlist[position].message + "\" " + getString(R.string.alarm_comment)
                     commentTextView.text = str_1
                 }
                 2 -> {
