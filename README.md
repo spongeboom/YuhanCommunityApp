@@ -32,28 +32,7 @@
 
 ## Apps Views
 
-### **1. Favorite Tap & Push Message**
-
-게시물의 좋아요, 댓글, 회원의 팔로우 등을 했을때 해당 회원에게 Push Message 로 알려주고 난 뒤
-어떤 알림인지 볼 수 있는 탭  
-
- **- 좋아요**
-
-<img width="200px" height="300px" src="./app/src/main/res/drawable/like_3.png"></img>
-<img width="200px" height="300px" src="./app/src/main/res/drawable/like_2.png"></img>
-
- **- 댓글**
-
-<img width="200px" height="300px" src="./app/src/main/res/drawable/comments_2.png"></img>
-<img width="200px" height="300px" src="./app/src/main/res/drawable/comments_1.png"></img>
-
- **- 팔로우**
-
-<img width="200px" height="300px" src="./app/src/main/res/drawable/follow_2.png"></img>
-<img width="200px" height="300px" src="./app/src/main/res/drawable/follow_3.png"></img>
-
-
-### **2. Firebase Console**
+### **1. Firebase Console**
 Firebase 에서 제공하는 기능을 관리하기 위한 페이지 이며
 데이터 관리 파일 관리 이외에도 다양한 기능들이 있다.
 
@@ -82,6 +61,24 @@ Cloud Storage, 이미지 및 동영상을 업로드 할 수 있고 업로드된 
 
 #### **- Firebase firestore**
 NoSQL 클라우드 데이터베이스, 실시간 리스너를 통해 클라이언트 애플리케이션 간에 데이터 동기화를 유지하고 네트워크 지연 시간이나 인터넷 연결에 상관없이 원할하게 반응하는 앱을 개발하기 쉽게 구성되어 있다.
+
+- alarms
+
+![firebase_firestore](./app/src/main/res/drawable/alarms.png)
+
+ Favorite 탭에 보여질 데이터 kind 필드의 값으로 알림 타입을 구분한다,
+
+      0 = 좋아요
+      1 = 댓글
+      2 = 팔로우
+
+  destinationUid(알림을 받는 유저의 Uid), message(댓글을 달았을때 해당 댓글의 텍스트), uid(알림을 보내는 유저의 uid),userId(알림을 보내는 유저의 Id)
+
+- Push Token
+
+![firebase_firestore](./app/src/main/res/drawable/push_token.png)
+
+Push Message 를 전송하기 위해 로그인과 동시에 Push Token 을 가져와 데이터베이스에 등록한다.  
 
 - 프로필 사진
 
@@ -114,6 +111,29 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
 유저가 다른 유저를 팔로우를 하면 users 컬렉션이 생성되고 해당유저의 대한 팔로워,팔로워 카운트 , 팔로잉, 팔로잉 카운트가 필드로 등록된다.
 
+------
+
+### **2. Favorite Tap & Push Message**
+
+게시물의 좋아요, 댓글, 회원의 팔로우 등을 했을때 해당 회원에게 Push Message 로 알려주고 난 뒤
+어떤 알림인지 볼 수 있는 탭
+
+ **- 좋아요**
+
+<img width="200px" height="300px" src="./app/src/main/res/drawable/like_3.png"></img>
+<img width="200px" height="300px" src="./app/src/main/res/drawable/like_2.png"></img>
+
+ **- 댓글**
+
+<img width="200px" height="300px" src="./app/src/main/res/drawable/comments_2.png"></img>
+<img width="200px" height="300px" src="./app/src/main/res/drawable/comments_1.png"></img>
+
+ **- 팔로우**
+
+<img width="200px" height="300px" src="./app/src/main/res/drawable/follow_2.png"></img>
+<img width="200px" height="300px" src="./app/src/main/res/drawable/follow_3.png"></img>
+
+------
 
 
   ### **3. 사용자 인증**
@@ -143,6 +163,7 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
   __Firebase Facebook 인증__ 기능을 사용해 OAuth 토큰을 발급해 사용자가 쉽게 Facebook 계정을 통해 로그인을 할 수 있다.
 
+------
 
   ### **4. Home Tap**
 
@@ -172,12 +193,16 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
   게시글에 댓글을 달면 해당 게시글의 댓글을 보고있는 다른 사용자도 실시간으로 댓글을 확인할수 있다.
 
+------
+
 ### **5. SearchTap**
   - **전체게시글 보기**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/search.png"></img>
 
   Firebase Storage , FirebaseDB 를 사용하였고 모든 유저가 작성한 게시글을 전부 볼수 있다.
+
+------
 
 ### **6. AccountTap**
 
