@@ -204,12 +204,12 @@ Firebase firestore 와 Firebase Storage 를 사용하였고 게시글을 작성�
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/search.png"></img>
 
-  Firebase Storage , FirebaseDB 를 사용하였고 모든 유저가 작성한 게시글을 전부 볼수 있다.
+  Firebase Storage , Firebase firestore 를 사용하였고 모든 유저가 작성한 게시글을 전부 볼수 있다.
 
 ------
 
 ### **7. AccountTap**
-
+  
   - **유저 프로필**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/account.png"></img>
