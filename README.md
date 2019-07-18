@@ -31,7 +31,7 @@
 
 
 ## Apps Views
-  #### **1. 사용자 인증**
+  ### **1. 사용자 인증**
 
   - **Main**
 
@@ -58,7 +58,7 @@
 
   __Firebase Facebook 인증__ 기능을 사용해 OAuth 토큰을 발급해 사용자가 쉽게 Facebook 계정을 통해 로그인을 할 수 있다.
 
-  #### **2. Favorite Tap & Push Message**
+  ### **2. Favorite Tap & Push Message**
 
   게시물의 좋아요, 댓글, 회원의 팔로우 등을 했을때 해당 회원에게 Push Message 로 알려주고 난 뒤
   어떤 알림인지 볼 수 있는 탭  
@@ -79,18 +79,18 @@
  <img width="200px" height="300px" src="./app/src/main/res/drawable/follow_3.png"></img>
 
 
- #### **3. Firebase Console**
+ ### **3. Firebase Console**
  Firebase 에서 제공하는 기능을 관리하기 위한 페이지 이며
  데이터 관리 파일 관리 이외에도 다양한 기능들이 있다.
 
- ##### **- Firebase Authentication**
+ #### **- Firebase Authentication**
 
  ![firebaseauth](./app/src/main/res/drawable/firebase_console.png)
 
    신규회원이 회원가입을 하게 되면 Firebase Authentication에 유저정보가 추가
    되고 인증이 된 사용자를 Firebase console 에서 대쉬보드 형태로 볼수 있다.
 
- ##### **- Firebase Storage**
+ #### **- Firebase Storage**
 
   Cloud Storage, 이미지 및 동영상을 업로드 할 수 있고 업로드된 파일을 관리할 수 있는 콘솔이다.
 
@@ -106,7 +106,7 @@
 
  게시물을 새로 작성하면 게시물에 등록된 이미지는 업로드된 시간을 기준으로 이미지파일명으로 지정되어 업로드 된다.
 
- ##### **- Firebase firestore**
+ #### **- Firebase firestore**
   NoSQL 클라우드 데이터베이스, 실시간 리스너를 통해 클라이언트 애플리케이션 간에 데이터 동기화를 유지하고 네트워크 지연 시간이나 인터넷 연결에 상관없이 원할하게 반응하는 앱을 개발하기 쉽게 구성되어 있다.
 
   - 프로필 사진
@@ -141,7 +141,7 @@
  유저가 다른 유저를 팔로우를 하면 users 컬렉션이 생성되고 해당유저의 대한 팔로워,팔로워 카운트 , 팔로잉, 팔로잉 카운트가 필드로 등록된다.
 
 
-  #### **2. Home Tap**
+  ### **4. Home Tap**
 
   Firebase firestore 와 Firebase Storage 를 사용 하였고 실시간 업데이트로 게시글을 실시간으로 볼 수 있고, 팔로우 한 유저가 작성한 게시글만 볼 수 있다.
 
@@ -171,14 +171,14 @@
 
   게시글에 댓글을 달면 해당 게시글의 댓글을 보고있는 다른 사용자도 실시간으로 댓글을 확인할수 있다.
 
-#### **3. SearchTap**
+### **5. SearchTap**
   - **전체게시글 보기**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/search.png"></img>
 
   Firebase Storage , FirebaseDB 를 사용하였고 모든 유저가 작성한 게시글을 전부 볼수 있다.
 
-  #### **4. AccountTap**
+### **6. AccountTap**
 
   - **account**
 
