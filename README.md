@@ -116,7 +116,6 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
 
 
-
   ### **3. 사용자 인증**
 
   - **Main**
@@ -153,8 +152,6 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/contents.png"></img>
 
-  게시글의 데이터를 가져와 __recyclerView__ 로 보여주고 있다.
-
   - **게시물 등록(Gallery Tap)**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/add_contents.png"></img>
@@ -188,11 +185,11 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/account.png"></img>
 
-  본인 계정의 프로필 사진 등록이나 게시물 관리, 현재 자신의 팔로워가 몇명인지, 팔로잉 하고 있는 유저는 몇명인지를 확인 할 수 있다.
+  본인 계정의 프로필 사진 등록이나 게시물 관리, 현재 자신의 팔로워가 몇명인지, 팔로잉 하고 있는 유저는 몇명인지를 확인 할 수 있다. (다른 유저의 프로필로 들어가면 로그아웃 버튼이 아니라 팔로우 버튼으로 변경 된다. )
 
   - **팔로우**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/follow_0.png"></img>
   <img width="200px" height="300px" src="./app/src/main/res/drawable/follow_1.png"></img>
 
-  사용자가 다른 사용자의 정보창으로 들어가 팔로우를 터치하면 버튼의 TEXT가 변경되며 팔로잉하는 유저의 팔로워 카운트의 값이 증가 한다.
+  사용자가 다른 사용자의 정보창으로 들어가 팔로우를 터치하면 버튼의 TEXT가 변경되며 팔로잉하는 유저의 팔로워 카운트의 값이 증가 한다.(본인계정의 팔로잉 카운트의 값도 같이 증가.)
