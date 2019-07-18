@@ -136,7 +136,7 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 ------
 
 
-  ### **3. 사용자 인증**
+### **3. 사용자 인증**
 
   - **Main**
 
@@ -165,20 +165,15 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
 ------
 
-  ### **4. Home Tap**
+### **4. Home Tap**
 
-  Firebase firestore 와 Firebase Storage 를 사용 하였고 실시간 업데이트로 게시글을 실시간으로 볼 수 있고, 팔로우 한 유저가 작성한 게시글만 볼 수 있다.
+  Firebase firestore 와 Firebase Storage 를 사용 하였고 팔로우를 한 유저가 작성한 게시글만 볼 수 있다 (실시간 업데이트로 게시글을 실시간으로 볼 수 있다)
 
   - **게시물 보기**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/contents.png"></img>
 
-  - **게시물 등록(Gallery Tap)**
-
-  <img width="200px" height="300px" src="./app/src/main/res/drawable/add_contents.png"></img>
-
-  하단 NavTap 의 Gallery를 탭하면 게시물등록 Fragment로 이동하고 게시글을 작성할수 있다.
-  게시글을 작성하면 작성자를 팔로우한 다른 유저가 실시간으로 확인할수 있다.
+  자신이 팔로우한 유저의 게시물을 볼 수 있다.
 
   - **Like 기능**
 
@@ -194,8 +189,17 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
   게시글에 댓글을 달면 해당 게시글의 댓글을 보고있는 다른 사용자도 실시간으로 댓글을 확인할수 있다.
 
 ------
+### **5. GalleryTap**
 
-### **5. SearchTap**
+- **게시물 등록**
+
+<img width="200px" height="300px" src="./app/src/main/res/drawable/add_contents.png"></img>
+
+Firebase firestore 와 Firebase Storage 를 사용하였고 게시글을 작성하게 되면 작성자를 팔로우한 다른 유저가 실시간으로 확인할수 있다.
+
+-------
+
+### **6. SearchTap**
   - **전체게시글 보기**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/search.png"></img>
@@ -204,13 +208,13 @@ Storage로 업로드 된후 Storage에서 Image Url 주소를 받아 데이터�
 
 ------
 
-### **6. AccountTap**
+### **7. AccountTap**
 
-  - **account**
+  - **유저 프로필**
 
   <img width="200px" height="300px" src="./app/src/main/res/drawable/account.png"></img>
 
-  본인 계정의 프로필 사진 등록이나 게시물 관리, 현재 자신의 팔로워가 몇명인지, 팔로잉 하고 있는 유저는 몇명인지를 확인 할 수 있다. (다른 유저의 프로필로 들어가면 로그아웃 버튼이 아니라 팔로우 버튼으로 변경 된다. )
+  본인 계정의 프로필 사진 등록이나 게시물, 게시물의 갯수, 현재 자신의 팔로워가 몇명인지, 팔로잉 하고 있는 유저는 몇명인지를 확인 할 수 있다. (다른 유저의 프로필로 들어가면 로그아웃 버튼이 아니라 팔로우 버튼으로 변경 된다. )
 
   - **팔로우**
 
